@@ -1,9 +1,7 @@
-package kr.kro.minestar.rankitem.functions
+package kr.kro.minestar.rankitem.functions.reainforce
 
 import kr.kro.minestar.rankitem.data.RankItem
 import kr.kro.minestar.rankitem.enums.Rank
-import kr.kro.minestar.utility.string.toServer
-import kr.kro.minestar.utility.unit.setFalse
 import org.bukkit.entity.Player
 import org.bukkit.inventory.ItemStack
 
@@ -26,6 +24,4 @@ object ReinforceClass {
         rank ?: return null
         return RankItem(item, rank)
     }
-
-
 }

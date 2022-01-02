@@ -2,6 +2,8 @@ package kr.kro.minestar.rankitem
 
 import kr.kro.minestar.rankitem.functions.ItemClass
 import kr.kro.minestar.rankitem.functions.create.AddEnchant
+import kr.kro.minestar.rankitem.functions.create.CreateRankItemClass
+import kr.kro.minestar.rankitem.functions.dust.TradeDust
 import kr.kro.minestar.utility.item.setDisplay
 import kr.kro.minestar.utility.material.item
 import kr.kro.minestar.utility.string.toPlayer
@@ -16,15 +18,15 @@ import org.bukkit.enchantments.Enchantment
 import org.bukkit.entity.Player
 
 object CMD : CommandExecutor, TabCompleter {
-    private enum class Arg { create, cmd2, cmd3 }
+    private enum class Arg { create, trade, cmd3 }
 
     override fun onCommand(player: CommandSender, cmd: Command, label: String, args: Array<out String>): Boolean {
         if (player !is Player) return false
         if (args.isEmpty()) "rankitem".toPlayer(player).also { return false }
         when (args.first()) {
             "test" -> {}
-            Arg.create.name -> ItemClass.createRankItem(player, player.inventory.itemInMainHand)
-            Arg.cmd2.name -> {}
+            Arg.create.name -> CreateRankItemClass.newClass(player, player.inventory.itemInMainHand)
+            Arg.trade.name -> TradeDust(player)
             Arg.cmd3.name -> {}
         }
         return false

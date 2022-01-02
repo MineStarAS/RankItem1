@@ -1,10 +1,8 @@
 package kr.kro.minestar.rankitem.functions
 
 import kr.kro.minestar.rankitem.enums.Rank
-import kr.kro.minestar.rankitem.functions.create.CreateRankItem
 import kr.kro.minestar.utility.material.item
 import org.bukkit.Material
-import org.bukkit.entity.Player
 import org.bukkit.inventory.ItemStack
 
 object ItemClass {
@@ -17,11 +15,11 @@ object ItemClass {
         return item
     }
 
-    fun createRankItem(player: Player, item: ItemStack?): Boolean {
-        item ?: return false
-        if (!player.isOp) return false
-        if (item.type == Material.AIR) return false
-        CreateRankItem(player, item)
+    fun isRankDust(item: ItemStack): Boolean {
+        if (item.type != Material.GLOWSTONE_DUST) return false
+        if (!item.itemMeta.hasDisplayName()) return false
+        if (!item.itemMeta.hasCustomModelData()) return false
+        if (item.itemMeta.displayName.contains("가루")) return false
         return true
     }
 
@@ -37,5 +35,18 @@ object ItemClass {
         }
         rank ?: return false
         return true
+    }
+
+    fun getRank(item: ItemStack): Rank? {
+        val lore = item.lore ?: return null
+        if (lore.isEmpty()) return null
+        val rankLore = lore.last()
+        if (!rankLore.contains("랭크")) return null
+        var rank: Rank? = null
+        for (r in Rank.values()) if (rankLore.contains(r.name)) {
+            rank = r
+            break
+        }
+        return rank
     }
 }
