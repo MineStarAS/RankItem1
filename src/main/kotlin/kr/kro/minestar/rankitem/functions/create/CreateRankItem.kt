@@ -4,7 +4,6 @@ import kr.kro.minestar.rankitem.Main
 import kr.kro.minestar.rankitem.Main.Companion.prefix
 import kr.kro.minestar.rankitem.enums.Rank
 import kr.kro.minestar.rankitem.functions.ItemClass
-import kr.kro.minestar.rankitem.functions.ReinforceClass
 import kr.kro.minestar.utility.gui.GUI
 import kr.kro.minestar.utility.item.*
 import kr.kro.minestar.utility.material.item
@@ -18,15 +17,14 @@ import org.bukkit.event.inventory.ClickType
 import org.bukkit.event.inventory.InventoryClickEvent
 import org.bukkit.event.player.PlayerChatEvent
 import org.bukkit.inventory.Inventory
+import org.bukkit.inventory.ItemFlag
 import org.bukkit.inventory.ItemStack
 
-class CreateRankItem(override val player: Player, originItem: ItemStack) : GUI {
+class CreateRankItem(override val player: Player, val item: ItemStack) : GUI {
     private enum class Typing { NULL, DISPLAY, PREFIX, SUFFIX, LORE }
 
     override val pl = Main.pl
     override val gui: Inventory = Bukkit.createInventory(null, 9, "랭크 아이템 생성")
-
-    val item: ItemStack
 
     private var typing = Typing.NULL
 
@@ -37,19 +35,21 @@ class CreateRankItem(override val player: Player, originItem: ItemStack) : GUI {
         Slot(0, 6, Material.MAP.item().setDisplay("§e로어 추가")),
         Slot(0, 7, Material.PAPER.item().setDisplay("§e로어 제거")),
         Slot(0, 8, Material.ENCHANTED_BOOK.item().setDisplay("§e인첸트 추가")),
+        Slot(0, 5, Material.STRUCTURE_VOID.item().setDisplay("§e속성 숨기기/보이기")),
     )
+
+    val rankLore = "§f§7랭크 : ${Rank.F}"
 
     init {
         displaying()
         openGUI()
-        gui.setItem(4, originItem.clone())
-        item = gui.getItem(4)!!
 
         if (!ItemClass.isRankItem(item)) {
-            val lore = mutableListOf("§f§7랭크 : ${Rank.F}")
-            if (item.lore != null) for (s in item.lore!!) lore.add(s)
-            item.lore = lore
+            item.addLore(" ")
+            item.addLore(rankLore)
         }
+
+        updateItem()
     }
 
     @EventHandler
@@ -59,10 +59,10 @@ class CreateRankItem(override val player: Player, originItem: ItemStack) : GUI {
         e.isCancelled = true
         if (e.clickedInventory != e.view.topInventory) return
         if (e.click != ClickType.LEFT) return
-        val item = e.currentItem ?: return
+        val clickItem = e.currentItem ?: return
 
-        when (item) {
-            this.item -> player.inventory.addItem(item.clone())
+        when (clickItem) {
+            item -> player.inventory.addItem(clickItem.clone())
             slots[0].item -> {
                 typing = Typing.DISPLAY
                 player.closeInventory()
@@ -92,12 +92,18 @@ class CreateRankItem(override val player: Player, originItem: ItemStack) : GUI {
                 "§7(취소는 \"취소\" 입력)".toPlayer(player)
             }
             slots[4].item -> {
-                val lore = this.item.lore!!
-                if (lore.size <= 1) return
-                lore.removeAt(lore.lastIndex)
-                this.item.lore = lore
+                val lore = item.lore!!
+                if (lore.size <= 2) return
+                lore.removeAt(lore.lastIndex - 2)
+                item.lore = lore
+                updateItem()
             }
             slots[5].item -> AddEnchant(player, item, this)
+            slots[6].item -> {
+                if (!item.itemFlags.contains(ItemFlag.HIDE_ATTRIBUTES)) item.addItemFlags(ItemFlag.HIDE_ATTRIBUTES)
+                else item.removeItemFlags(ItemFlag.HIDE_ATTRIBUTES)
+                updateItem()
+            }
         }
     }
 
@@ -111,7 +117,15 @@ class CreateRankItem(override val player: Player, originItem: ItemStack) : GUI {
             Typing.DISPLAY -> item.setDisplay(message)
             Typing.PREFIX -> item.addPrefix(message)
             Typing.SUFFIX -> item.addSuffix(message)
-            Typing.LORE -> item.addLore(message)
+            Typing.LORE -> {
+                val lore = item.lore!!
+                lore.removeAt(lore.lastIndex)
+                lore.removeAt(lore.lastIndex)
+                lore.add("§f$message")
+                lore.add(" ")
+                lore.add(rankLore)
+                item.lore = lore
+            }
         }
         e.isCancelled = true
         typing = Typing.NULL
@@ -121,5 +135,8 @@ class CreateRankItem(override val player: Player, originItem: ItemStack) : GUI {
 
     override fun displaying() {
         for (slot in slots) gui.setItem(slot.get, slot.item)
+        updateItem()
     }
+
+    fun updateItem() = gui.setItem(4, item)
 }
