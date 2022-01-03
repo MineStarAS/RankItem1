@@ -15,10 +15,13 @@ class Main : JavaPlugin() {
         pl = this
         logger.info("$prefix §aEnable")
         getCommand("rankitem")?.setExecutor(CMD)
+
         saveResource("HEAD_ITEM.yml", true)
         val headFile = File(dataFolder, "HEAD_ITEM.yml")
         headItem = YamlConfiguration.loadConfiguration(headFile)
         headFile.delete()
+
+        saveResource("config.yml", false)
     }
 
     override fun onDisable() {

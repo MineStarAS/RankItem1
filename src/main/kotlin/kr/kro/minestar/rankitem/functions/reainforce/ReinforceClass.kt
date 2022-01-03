@@ -1,27 +1,21 @@
 package kr.kro.minestar.rankitem.functions.reainforce
 
-import kr.kro.minestar.rankitem.data.RankItem
+import kr.kro.minestar.rankitem.Main.Companion.pl
 import kr.kro.minestar.rankitem.enums.Rank
-import org.bukkit.entity.Player
+import kr.kro.minestar.rankitem.functions.ItemClass
+import kr.kro.minestar.utility.number.percent
 import org.bukkit.inventory.ItemStack
 
 object ReinforceClass {
-
-    fun reinforceRankItem(player: Player, item: ItemStack) {
+    fun newClass() {
 
     }
 
-    fun toRankItem(item: ItemStack): RankItem? {
-        val lore = item.lore ?: return null
-        if (lore.isEmpty()) return null
-        val rankLore = lore.first()
-        if (!rankLore.contains("랭크")) return null
-        var rank: Rank? = null
-        for (r in Rank.values()) if (rankLore.contains(r.toString())) {
-            rank = r
-            break
-        }
-        rank ?: return null
-        return RankItem(item, rank)
+    fun rankPercent(rank: Rank) = pl.config.getDouble(rank.name).percent()
+
+    fun rankUp(item: ItemStack): Boolean {
+        if (!ItemClass.isRankItem(item)) return false
+
+        return false
     }
 }

@@ -42,12 +42,17 @@ class TradeDust(override val player: Player) : GUI {
         )
         for (item in gui) {
             item ?: continue
+            var amount = 0
             val rank = ItemClass.getRank(item)
             if (rank == null) {
                 player.inventory.addItem(item)
                 continue
             }
-            var amount = 0
+
+            if (ItemClass.isRankDust(item)) {
+
+            }
+
             for (int in 1..item.amount) {
                 val a = 3 + Random.nextInt(3)
                 player.inventory.addItem(ItemClass.rankDust(rank).amount(a))

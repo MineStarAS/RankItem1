@@ -1,20 +1,14 @@
 package kr.kro.minestar.rankitem
 
+import kr.kro.minestar.rankitem.enums.Rank
 import kr.kro.minestar.rankitem.functions.ItemClass
-import kr.kro.minestar.rankitem.functions.create.AddEnchant
 import kr.kro.minestar.rankitem.functions.create.CreateRankItemClass
 import kr.kro.minestar.rankitem.functions.dust.TradeDust
-import kr.kro.minestar.utility.item.setDisplay
-import kr.kro.minestar.utility.material.item
 import kr.kro.minestar.utility.string.toPlayer
-import kr.kro.minestar.utility.string.toServer
-import org.bukkit.Bukkit
-import org.bukkit.Material
 import org.bukkit.command.Command
 import org.bukkit.command.CommandExecutor
 import org.bukkit.command.CommandSender
 import org.bukkit.command.TabCompleter
-import org.bukkit.enchantments.Enchantment
 import org.bukkit.entity.Player
 
 object CMD : CommandExecutor, TabCompleter {
@@ -24,7 +18,7 @@ object CMD : CommandExecutor, TabCompleter {
         if (player !is Player) return false
         if (args.isEmpty()) "rankitem".toPlayer(player).also { return false }
         when (args.first()) {
-            "test" -> {}
+            "test" -> ItemClass.test(Rank.SSS)
             Arg.create.name -> CreateRankItemClass.newClass(player, player.inventory.itemInMainHand)
             Arg.trade.name -> TradeDust(player)
             Arg.cmd3.name -> {}

@@ -1,7 +1,10 @@
 package kr.kro.minestar.rankitem.functions
 
 import kr.kro.minestar.rankitem.enums.Rank
+import kr.kro.minestar.utility.item.display
 import kr.kro.minestar.utility.material.item
+import kr.kro.minestar.utility.string.toServer
+import kr.kro.minestar.utility.string.unColor
 import org.bukkit.Material
 import org.bukkit.inventory.ItemStack
 
@@ -38,9 +41,12 @@ object ItemClass {
     }
 
     fun getRank(item: ItemStack): Rank? {
-        val lore = item.lore ?: return null
-        if (lore.isEmpty()) return null
-        val rankLore = lore.last()
+        if (isRankDust(item)) {
+            for (rank in Rank.values()) if (item.display().unColor().contains(rank.name)) return rank
+            return null
+        }
+        if (!isRankItem(item)) return null
+        val rankLore = item.lore?.last() ?: return null
         if (!rankLore.contains("랭크")) return null
         var rank: Rank? = null
         for (r in Rank.values()) if (rankLore.contains(r.name)) {
@@ -48,5 +54,13 @@ object ItemClass {
             break
         }
         return rank
+    }
+
+    fun nextRank(rank: Rank): Rank? {
+       return null
+    }
+
+    fun test (rank: Rank) {
+        rank.ordinal.toString().toServer()
     }
 }
