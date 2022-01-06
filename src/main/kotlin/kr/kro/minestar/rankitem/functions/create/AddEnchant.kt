@@ -1,10 +1,11 @@
 package kr.kro.minestar.rankitem.functions.create
 
 import kr.kro.minestar.rankitem.Main
-import kr.kro.minestar.rankitem.Main.Companion.headItem
+import kr.kro.minestar.rankitem.functions.ItemClass.head
 import kr.kro.minestar.utility.gui.GUI
 import kr.kro.minestar.utility.item.Slot
-import kr.kro.minestar.utility.item.setDisplay
+import kr.kro.minestar.utility.item.isSameItem
+import kr.kro.minestar.utility.item.display
 import kr.kro.minestar.utility.material.item
 import org.bukkit.Bukkit
 import org.bukkit.Material
@@ -20,24 +21,24 @@ class AddEnchant(override val player: Player, val item: ItemStack, val createRan
     override val pl = Main.pl
     override val gui = Bukkit.createInventory(null, 9 * 4, "인첸트 목록")
 
-    val backItem = headItem.getItemStack("RedArrowLeft")!!.setDisplay("§c뒤로 가기")
+    val backItem = head(9334).display("§c뒤로 가기")
 
     val white = listOf(
-        headItem.getItemStack("White1")!!.setDisplay("§71번 목록으로"),
-        headItem.getItemStack("White2")!!.setDisplay("§72번 목록으로"),
+        head(9270).display("§71번 목록으로"),
+        head(9269).display("§72번 목록으로"),
     )
 
     val levelItem = listOf(
-        headItem.getItemStack("Blue1")!!.setDisplay("§9인첸트 레벨 : 1"),
-        headItem.getItemStack("Blue2")!!.setDisplay("§9인첸트 레벨 : 2"),
-        headItem.getItemStack("Blue3")!!.setDisplay("§9인첸트 레벨 : 3"),
-        headItem.getItemStack("Blue4")!!.setDisplay("§9인첸트 레벨 : 4"),
-        headItem.getItemStack("Blue5")!!.setDisplay("§9인첸트 레벨 : 5"),
-        headItem.getItemStack("Blue6")!!.setDisplay("§9인첸트 레벨 : 6"),
-        headItem.getItemStack("Blue7")!!.setDisplay("§9인첸트 레벨 : 7"),
-        headItem.getItemStack("Blue8")!!.setDisplay("§9인첸트 레벨 : 8"),
-        headItem.getItemStack("Blue9")!!.setDisplay("§9인첸트 레벨 : 9"),
-        headItem.getItemStack("Blue10")!!.setDisplay("§9인첸트 레벨 : 10"),
+        head(8946).display("§9인첸트 레벨 : 1"),
+        head(8945).display("§9인첸트 레벨 : 2"),
+        head(8944).display("§9인첸트 레벨 : 3"),
+        head(8943).display("§9인첸트 레벨 : 4"),
+        head(8942).display("§9인첸트 레벨 : 5"),
+        head(8941).display("§9인첸트 레벨 : 6"),
+        head(8940).display("§9인첸트 레벨 : 7"),
+        head(8939).display("§9인첸트 레벨 : 8"),
+        head(8938).display("§9인첸트 레벨 : 9"),
+        head(8937).display("§9인첸트 레벨 : 10"),
     )
 
     var level = 0
@@ -77,17 +78,17 @@ class AddEnchant(override val player: Player, val item: ItemStack, val createRan
                 else -> null
             }
             slot ?: continue
-            slot.item.setDisplay("§e인첸트 부여")
+            slot.item.display("§e인첸트 부여")
             val meta = slot.item.itemMeta
-            meta.addEnchant(enchant, 1, false)
+            meta.addEnchant(enchant, level + 1, true)
             slot.item.itemMeta = meta
             gui.setItem(slot.get, slot.item)
         }
-        gui.setItem(0, Material.DIAMOND_CHESTPLATE.item().setDisplay("§6방어구").also { it.addItemFlags(ItemFlag.HIDE_ATTRIBUTES) })
-        gui.setItem(6, Material.HEART_OF_THE_SEA.item().setDisplay("§6만능").also { it.addItemFlags(ItemFlag.HIDE_ATTRIBUTES) })
-        gui.setItem(9, Material.DIAMOND_HELMET.item().setDisplay("§6투구").also { it.addItemFlags(ItemFlag.HIDE_ATTRIBUTES) })
-        gui.setItem(12, Material.DIAMOND_BOOTS.item().setDisplay("§6부츠").also { it.addItemFlags(ItemFlag.HIDE_ATTRIBUTES) })
-        gui.setItem(18, Material.IRON_SWORD.item().setDisplay("§6검").also { it.addItemFlags(ItemFlag.HIDE_ATTRIBUTES) })
+        gui.setItem(0, Material.DIAMOND_CHESTPLATE.item().display("§6방어구").also { it.addItemFlags(ItemFlag.HIDE_ATTRIBUTES) })
+        gui.setItem(6, Material.HEART_OF_THE_SEA.item().display("§6만능").also { it.addItemFlags(ItemFlag.HIDE_ATTRIBUTES) })
+        gui.setItem(9, Material.DIAMOND_HELMET.item().display("§6투구").also { it.addItemFlags(ItemFlag.HIDE_ATTRIBUTES) })
+        gui.setItem(12, Material.DIAMOND_BOOTS.item().display("§6부츠").also { it.addItemFlags(ItemFlag.HIDE_ATTRIBUTES) })
+        gui.setItem(18, Material.IRON_SWORD.item().display("§6검").also { it.addItemFlags(ItemFlag.HIDE_ATTRIBUTES) })
 
         gui.setItem(9 * 3, backItem)
         gui.setItem(9 * 3 + 4, item)
@@ -127,18 +128,18 @@ class AddEnchant(override val player: Player, val item: ItemStack, val createRan
                 else -> null
             }
             slot ?: continue
-            slot.item.setDisplay("§e인첸트 부여")
+            slot.item.display("§e인첸트 부여")
             val meta = slot.item.itemMeta
-            meta.addEnchant(enchant, 1, false)
+            meta.addEnchant(enchant, level + 1, true)
             slot.item.itemMeta = meta
             gui.setItem(slot.get, slot.item)
         }
-        gui.setItem(0, Material.IRON_PICKAXE.item().setDisplay("§6도구").also { it.addItemFlags(ItemFlag.HIDE_ATTRIBUTES) })
-        gui.setItem(5, Material.WITHER_SKELETON_SKULL.item().setDisplay("§6저주").also { it.addItemFlags(ItemFlag.HIDE_ATTRIBUTES) })
-        gui.setItem(9, Material.BOW.item().setDisplay("§6활").also { it.addItemFlags(ItemFlag.HIDE_ATTRIBUTES) })
-        gui.setItem(14, Material.CROSSBOW.item().setDisplay("§6석궁").also { it.addItemFlags(ItemFlag.HIDE_ATTRIBUTES) })
-        gui.setItem(18, Material.FISHING_ROD.item().setDisplay("§6낚싯대").also { it.addItemFlags(ItemFlag.HIDE_ATTRIBUTES) })
-        gui.setItem(21, Material.TRIDENT.item().setDisplay("§6삼지창").also { it.addItemFlags(ItemFlag.HIDE_ATTRIBUTES) })
+        gui.setItem(0, Material.IRON_PICKAXE.item().display("§6도구").also { it.addItemFlags(ItemFlag.HIDE_ATTRIBUTES) })
+        gui.setItem(5, Material.WITHER_SKELETON_SKULL.item().display("§6저주").also { it.addItemFlags(ItemFlag.HIDE_ATTRIBUTES) })
+        gui.setItem(9, Material.BOW.item().display("§6활").also { it.addItemFlags(ItemFlag.HIDE_ATTRIBUTES) })
+        gui.setItem(14, Material.CROSSBOW.item().display("§6석궁").also { it.addItemFlags(ItemFlag.HIDE_ATTRIBUTES) })
+        gui.setItem(18, Material.FISHING_ROD.item().display("§6낚싯대").also { it.addItemFlags(ItemFlag.HIDE_ATTRIBUTES) })
+        gui.setItem(21, Material.TRIDENT.item().display("§6삼지창").also { it.addItemFlags(ItemFlag.HIDE_ATTRIBUTES) })
 
         gui.setItem(9 * 3, backItem)
         gui.setItem(9 * 3 + 4, item)
@@ -173,10 +174,16 @@ class AddEnchant(override val player: Player, val item: ItemStack, val createRan
             levelItem[5],
             levelItem[6],
             levelItem[7],
-            levelItem[8] -> gui.setItem(9 * 3 + 7, levelItem[++level])
+            levelItem[8] -> {
+                gui.setItem(9 * 3 + 7, levelItem[++level])
+                if (gui.getItem(9 * 3 + 8)!!.isSameItem(white[0])) displaying1()
+                else displaying()
+            }
             levelItem[9] -> {
                 level = 0
                 gui.setItem(9 * 3 + 7, levelItem[level])
+                if (gui.getItem(9 * 3 + 8)!!.isSameItem(white[0])) displaying1()
+                else displaying()
             }
             item -> player.inventory.addItem(item)
         }

@@ -4,7 +4,10 @@ import kr.kro.minestar.rankitem.enums.Rank
 import kr.kro.minestar.rankitem.functions.ItemClass
 import kr.kro.minestar.rankitem.functions.create.CreateRankItemClass
 import kr.kro.minestar.rankitem.functions.dust.TradeDust
+import kr.kro.minestar.rankitem.functions.reainforce.ReinforceClass
 import kr.kro.minestar.utility.string.toPlayer
+import kr.kro.minestar.utility.string.toServer
+import me.arcaniax.hdb.api.HeadDatabaseAPI
 import org.bukkit.command.Command
 import org.bukkit.command.CommandExecutor
 import org.bukkit.command.CommandSender
@@ -18,7 +21,9 @@ object CMD : CommandExecutor, TabCompleter {
         if (player !is Player) return false
         if (args.isEmpty()) "rankitem".toPlayer(player).also { return false }
         when (args.first()) {
-            "test" -> ItemClass.test(Rank.SSS)
+            "test" -> {
+                ReinforceClass.newClass(player, player.inventory.itemInMainHand)
+            }
             Arg.create.name -> CreateRankItemClass.newClass(player, player.inventory.itemInMainHand)
             Arg.trade.name -> TradeDust(player)
             Arg.cmd3.name -> {}

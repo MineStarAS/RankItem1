@@ -29,13 +29,13 @@ class CreateRankItem(override val player: Player, val item: ItemStack) : GUI {
     private var typing = Typing.NULL
 
     val slots = listOf(
-        Slot(0, 0, Material.WRITABLE_BOOK.item().setDisplay("§e이름 설정")),
-        Slot(0, 1, Material.NAME_TAG.item().setDisplay("§e접두사 추가")),
-        Slot(0, 2, Material.NAME_TAG.item().setDisplay("§e접미사 추가")),
-        Slot(0, 6, Material.MAP.item().setDisplay("§e로어 추가")),
-        Slot(0, 7, Material.PAPER.item().setDisplay("§e로어 제거")),
-        Slot(0, 8, Material.ENCHANTED_BOOK.item().setDisplay("§e인첸트 추가")),
-        Slot(0, 5, Material.STRUCTURE_VOID.item().setDisplay("§e속성 숨기기/보이기")),
+        Slot(0, 0, Material.WRITABLE_BOOK.item().display("§e이름 설정")),
+        Slot(0, 1, Material.NAME_TAG.item().display("§e접두사 추가")),
+        Slot(0, 2, Material.NAME_TAG.item().display("§e접미사 추가")),
+        Slot(0, 6, Material.MAP.item().display("§e로어 추가")),
+        Slot(0, 7, Material.PAPER.item().display("§e로어 제거")),
+        Slot(0, 8, Material.ENCHANTED_BOOK.item().display("§e인첸트 추가")),
+        Slot(0, 5, Material.STRUCTURE_VOID.item().display("§e속성 숨기기/보이기")),
     )
 
     val rankLore = "§f§7랭크 : ${Rank.F}"
@@ -114,7 +114,7 @@ class CreateRankItem(override val player: Player, val item: ItemStack) : GUI {
         val message = e.message.replace('&', '§').replace('_', ' ')
         if (message == "취소") return openGUI()
         when (typing) {
-            Typing.DISPLAY -> item.setDisplay(message)
+            Typing.DISPLAY -> item.display(message)
             Typing.PREFIX -> item.addPrefix(message)
             Typing.SUFFIX -> item.addSuffix(message)
             Typing.LORE -> {
