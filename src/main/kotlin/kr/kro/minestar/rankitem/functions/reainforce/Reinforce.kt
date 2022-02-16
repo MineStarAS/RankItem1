@@ -5,7 +5,7 @@ import kr.kro.minestar.rankitem.Main.Companion.prefix
 import kr.kro.minestar.rankitem.enums.Rank
 import kr.kro.minestar.rankitem.functions.ItemClass.getRank
 import kr.kro.minestar.rankitem.functions.ItemClass.nextRank
-import kr.kro.minestar.rankitem.functions.ItemClass.rankDust
+import kr.kro.minestar.rankitem.functions.ItemClass.rankStone
 import kr.kro.minestar.rankitem.functions.reainforce.ReinforceClass.rankPercent
 import kr.kro.minestar.rankitem.functions.reainforce.ReinforceClass.rankPercentItem
 import kr.kro.minestar.rankitem.functions.reainforce.ReinforceClass.rankUp
@@ -57,7 +57,7 @@ class Reinforce(override val player: Player, val item: ItemStack) : GUI {
         if (clickItem != reinforceButton) return
 
         val rank = getRank(item) ?: return
-        val rankDust = rankDust(rank)
+        val rankDust = rankStone(rank)
 
         if (rank == Rank.SSS) return "$prefix §c더 이상 강화를 할 수 없습니다.".toPlayer(player)
 

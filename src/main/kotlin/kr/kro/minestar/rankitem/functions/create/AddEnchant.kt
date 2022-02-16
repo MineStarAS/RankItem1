@@ -2,10 +2,12 @@ package kr.kro.minestar.rankitem.functions.create
 
 import kr.kro.minestar.rankitem.Main
 import kr.kro.minestar.rankitem.functions.ItemClass.head
+import kr.kro.minestar.rankitem.functions.reainforce.ReinforceClass.limitLevel
 import kr.kro.minestar.utility.gui.GUI
 import kr.kro.minestar.utility.item.Slot
-import kr.kro.minestar.utility.item.isSameItem
 import kr.kro.minestar.utility.item.display
+import kr.kro.minestar.utility.item.flagAll
+import kr.kro.minestar.utility.item.isSameItem
 import kr.kro.minestar.utility.material.item
 import org.bukkit.Bukkit
 import org.bukkit.Material
@@ -14,7 +16,6 @@ import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
 import org.bukkit.event.inventory.ClickType
 import org.bukkit.event.inventory.InventoryClickEvent
-import org.bukkit.inventory.ItemFlag
 import org.bukkit.inventory.ItemStack
 
 class AddEnchant(override val player: Player, val item: ItemStack, val createRankItem: CreateRankItem) : GUI {
@@ -80,15 +81,16 @@ class AddEnchant(override val player: Player, val item: ItemStack, val createRan
             slot ?: continue
             slot.item.display("§e인첸트 부여")
             val meta = slot.item.itemMeta
-            meta.addEnchant(enchant, level + 1, true)
+            if (limitLevel.contains(enchant) && limitLevel[enchant]!! < level + 1) meta.addEnchant(enchant, limitLevel[enchant]!!, true)
+            else meta.addEnchant(enchant, level + 1, true)
             slot.item.itemMeta = meta
             gui.setItem(slot.get, slot.item)
         }
-        gui.setItem(0, Material.DIAMOND_CHESTPLATE.item().display("§6방어구").also { it.addItemFlags(ItemFlag.HIDE_ATTRIBUTES) })
-        gui.setItem(6, Material.HEART_OF_THE_SEA.item().display("§6만능").also { it.addItemFlags(ItemFlag.HIDE_ATTRIBUTES) })
-        gui.setItem(9, Material.DIAMOND_HELMET.item().display("§6투구").also { it.addItemFlags(ItemFlag.HIDE_ATTRIBUTES) })
-        gui.setItem(12, Material.DIAMOND_BOOTS.item().display("§6부츠").also { it.addItemFlags(ItemFlag.HIDE_ATTRIBUTES) })
-        gui.setItem(18, Material.IRON_SWORD.item().display("§6검").also { it.addItemFlags(ItemFlag.HIDE_ATTRIBUTES) })
+        gui.setItem(0, Material.DIAMOND_CHESTPLATE.item().display("§6방어구").flagAll())
+        gui.setItem(6, Material.HEART_OF_THE_SEA.item().display("§6만능").flagAll())
+        gui.setItem(9, Material.DIAMOND_HELMET.item().display("§6투구").flagAll())
+        gui.setItem(12, Material.DIAMOND_BOOTS.item().display("§6부츠").flagAll())
+        gui.setItem(18, Material.IRON_SWORD.item().display("§6검").flagAll())
 
         gui.setItem(9 * 3, backItem)
         gui.setItem(9 * 3 + 4, item)
@@ -130,16 +132,17 @@ class AddEnchant(override val player: Player, val item: ItemStack, val createRan
             slot ?: continue
             slot.item.display("§e인첸트 부여")
             val meta = slot.item.itemMeta
-            meta.addEnchant(enchant, level + 1, true)
+            if (limitLevel.contains(enchant) && limitLevel[enchant]!! < level + 1) meta.addEnchant(enchant, limitLevel[enchant]!!, true)
+            else meta.addEnchant(enchant, level + 1, true)
             slot.item.itemMeta = meta
             gui.setItem(slot.get, slot.item)
         }
-        gui.setItem(0, Material.IRON_PICKAXE.item().display("§6도구").also { it.addItemFlags(ItemFlag.HIDE_ATTRIBUTES) })
-        gui.setItem(5, Material.WITHER_SKELETON_SKULL.item().display("§6저주").also { it.addItemFlags(ItemFlag.HIDE_ATTRIBUTES) })
-        gui.setItem(9, Material.BOW.item().display("§6활").also { it.addItemFlags(ItemFlag.HIDE_ATTRIBUTES) })
-        gui.setItem(14, Material.CROSSBOW.item().display("§6석궁").also { it.addItemFlags(ItemFlag.HIDE_ATTRIBUTES) })
-        gui.setItem(18, Material.FISHING_ROD.item().display("§6낚싯대").also { it.addItemFlags(ItemFlag.HIDE_ATTRIBUTES) })
-        gui.setItem(21, Material.TRIDENT.item().display("§6삼지창").also { it.addItemFlags(ItemFlag.HIDE_ATTRIBUTES) })
+        gui.setItem(0, Material.IRON_PICKAXE.item().display("§6도구").flagAll())
+        gui.setItem(5, Material.WITHER_SKELETON_SKULL.item().display("§6저주").flagAll())
+        gui.setItem(9, Material.BOW.item().display("§6활").flagAll())
+        gui.setItem(14, Material.CROSSBOW.item().display("§6석궁").flagAll())
+        gui.setItem(18, Material.FISHING_ROD.item().display("§6낚싯대").flagAll())
+        gui.setItem(21, Material.TRIDENT.item().display("§6삼지창").flagAll())
 
         gui.setItem(9 * 3, backItem)
         gui.setItem(9 * 3 + 4, item)

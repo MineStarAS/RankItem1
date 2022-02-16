@@ -8,7 +8,6 @@ import kr.kro.minestar.utility.gui.GUI
 import kr.kro.minestar.utility.item.amount
 import kr.kro.minestar.utility.item.display
 import kr.kro.minestar.utility.string.toPlayer
-import kr.kro.minestar.utility.string.toServer
 import org.bukkit.Bukkit
 import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
@@ -16,12 +15,13 @@ import org.bukkit.event.HandlerList
 import org.bukkit.event.inventory.InventoryCloseEvent
 import kotlin.random.Random
 
-class TradeDust(override val player: Player) : GUI {
+class TradeRankStone(override val player: Player) : GUI {
     override val pl = Main.pl
-    override val gui = Bukkit.createInventory(null, 9 * 3, "랭크가루 교환")
+    override val gui = Bukkit.createInventory(null, 9 * 3, "랭크스톤 교환")
 
     init {
         openGUI()
+        "$prefix 아이템을 넣고 닫으면 랭크스톤를 얻습니다."
     }
 
     @EventHandler
@@ -29,7 +29,7 @@ class TradeDust(override val player: Player) : GUI {
         if (e.player != player) return
         if (e.inventory != gui) return
         HandlerList.unregisterAll(this)
-        val hasDust = hashMapOf(
+        val hasRankStone = hashMapOf(
             Pair(Rank.SSS, 0),
             Pair(Rank.SS, 0),
             Pair(Rank.S, 0),
@@ -41,7 +41,7 @@ class TradeDust(override val player: Player) : GUI {
             Pair(Rank.E, 0),
             Pair(Rank.F, 0),
         )
-        val tradeDust = hashMapOf(
+        val tradeRankStone = hashMapOf(
             Pair(Rank.SSS, 0),
             Pair(Rank.SS, 0),
             Pair(Rank.S, 0),
@@ -55,23 +55,23 @@ class TradeDust(override val player: Player) : GUI {
         )
         for (item in gui) {
             item ?: continue
-            if (!ItemClass.isRankDust(item)) continue
+            if (!ItemClass.isRankStone(item)) continue
             val rank = ItemClass.getRank(item) ?: continue
-            val stack = hasDust[rank] ?: 0
-            hasDust[rank] = stack + item.amount
+            val stack = hasRankStone[rank] ?: 0
+            hasRankStone[rank] = stack + item.amount
             item.amount = 0
         }
-        for (pair in hasDust) {
+        for (pair in hasRankStone) {
             if (pair.key == Rank.SSS) {
-                player.inventory.addItem(ItemClass.rankDust(Rank.SSS).amount(pair.value))
+                player.inventory.addItem(ItemClass.rankStone(Rank.SSS).amount(pair.value))
                 continue
             }
             val nextRank = ItemClass.nextRank(pair.key)!!
             val amount = pair.value / 10
             val remainder = pair.value % 10
-            player.inventory.addItem(ItemClass.rankDust(nextRank).amount(amount))
-            player.inventory.addItem(ItemClass.rankDust(pair.key).amount(remainder))
-            tradeDust[nextRank] = tradeDust[nextRank]!! + amount
+            player.inventory.addItem(ItemClass.rankStone(nextRank).amount(amount))
+            player.inventory.addItem(ItemClass.rankStone(pair.key).amount(remainder))
+            tradeRankStone[nextRank] = tradeRankStone[nextRank]!! + amount
         }
         for (item in gui) {
             item ?: continue
@@ -83,14 +83,14 @@ class TradeDust(override val player: Player) : GUI {
             }
             for (int in 1..item.amount) {
                 val a = 3 + Random.nextInt(3)
-                player.inventory.addItem(ItemClass.rankDust(rank).amount(a))
+                player.inventory.addItem(ItemClass.rankStone(rank).amount(a))
                 amount += a
             }
-            tradeDust[rank] = tradeDust[rank]!! + amount
+            tradeRankStone[rank] = tradeRankStone[rank]!! + amount
         }
-        for (pair in tradeDust) {
+        for (pair in tradeRankStone) {
             if (pair.value == 0) continue
-            val dust = ItemClass.rankDust(pair.key)
+            val dust = ItemClass.rankStone(pair.key)
             "$prefix ${dust.display()} §f를 §e${pair.value} §f개 얻었습니다.".toPlayer(player)
         }
     }

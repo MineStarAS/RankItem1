@@ -36,20 +36,21 @@ class CreateRankItem(override val player: Player, val item: ItemStack) : GUI {
         Slot(0, 7, Material.PAPER.item().display("§e로어 제거")),
         Slot(0, 8, Material.ENCHANTED_BOOK.item().display("§e인첸트 추가")),
         Slot(0, 5, Material.STRUCTURE_VOID.item().display("§e속성 숨기기/보이기")),
+        Slot(0, 3, ItemClass.rankStone(Rank.SSS).display("§e랭크 설정")),
     )
 
-    val rankLore = "§f§7랭크 : ${Rank.F}"
-
     init {
-        displaying()
-        openGUI()
+        if (player.isOp) if (item.type != Material.AIR) openGUI()
+    }
 
+    override fun displaying() {
+        gui.clear()
+        for (slot in slots) gui.setItem(slot.get, slot.item)
         if (!ItemClass.isRankItem(item)) {
             item.addLore(" ")
-            item.addLore(rankLore)
+            item.addLore("§f§7랭크 : ${Rank.F}")
         }
-
-        updateItem()
+        gui.setItem(4, item)
     }
 
     @EventHandler
@@ -95,15 +96,17 @@ class CreateRankItem(override val player: Player, val item: ItemStack) : GUI {
                 val lore = item.lore!!
                 if (lore.size <= 2) return
                 lore.removeAt(lore.lastIndex - 2)
+                if (lore.size == 3) lore.removeAt(lore.lastIndex - 2)
                 item.lore = lore
-                updateItem()
+                displaying()
             }
             slots[5].item -> AddEnchant(player, item, this)
             slots[6].item -> {
                 if (!item.itemFlags.contains(ItemFlag.HIDE_ATTRIBUTES)) item.addItemFlags(ItemFlag.HIDE_ATTRIBUTES)
                 else item.removeItemFlags(ItemFlag.HIDE_ATTRIBUTES)
-                updateItem()
+                displaying()
             }
+            slots[7].item -> SetRank(player, this)
         }
     }
 
@@ -118,12 +121,14 @@ class CreateRankItem(override val player: Player, val item: ItemStack) : GUI {
             Typing.PREFIX -> item.addPrefix(message)
             Typing.SUFFIX -> item.addSuffix(message)
             Typing.LORE -> {
+                val rank = ItemClass.getRank(item)
                 val lore = item.lore!!
                 lore.removeAt(lore.lastIndex)
                 lore.removeAt(lore.lastIndex)
+                if (lore.size == 0) lore.add(" ")
                 lore.add("§f$message")
                 lore.add(" ")
-                lore.add(rankLore)
+                lore.add("§f§7랭크 : $rank")
                 item.lore = lore
             }
         }
@@ -132,11 +137,4 @@ class CreateRankItem(override val player: Player, val item: ItemStack) : GUI {
         HandlerList.unregisterAll(this)
         openGUI()
     }
-
-    override fun displaying() {
-        for (slot in slots) gui.setItem(slot.get, slot.item)
-        updateItem()
-    }
-
-    fun updateItem() = gui.setItem(4, item)
 }

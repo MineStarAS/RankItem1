@@ -1,10 +1,9 @@
 package kr.kro.minestar.rankitem.functions
 
 import kr.kro.minestar.rankitem.enums.Rank
-import kr.kro.minestar.utility.item.display
+import kr.kro.minestar.utility.item.cmData
 import kr.kro.minestar.utility.item.display
 import kr.kro.minestar.utility.material.item
-import kr.kro.minestar.utility.string.toServer
 import kr.kro.minestar.utility.string.unColor
 import me.arcaniax.hdb.api.HeadDatabaseAPI
 import org.bukkit.Material
@@ -14,19 +13,13 @@ object ItemClass {
 
     fun head(id: Int) = HeadDatabaseAPI().getItemHead("$id") ?: Material.BARRIER.item().display("§c해당 ID의 머리가 없습니다")
 
-    fun rankDust(rank: Rank): ItemStack {
-        val item = Material.GLOWSTONE_DUST.item()
-        val meta = item.itemMeta
-        meta.setCustomModelData(rank.ordinal)
-        item.itemMeta = meta
-        return item.display("$rank 가루")
-    }
+    fun rankStone(rank: Rank): ItemStack = Material.NAUTILUS_SHELL.item().cmData(rank.ordinal).display("$rank 스톤")
 
-    fun isRankDust(item: ItemStack): Boolean {
+    fun isRankStone(item: ItemStack): Boolean {
         if (item.type != Material.GLOWSTONE_DUST) return false
         if (!item.itemMeta.hasDisplayName()) return false
         if (!item.itemMeta.hasCustomModelData()) return false
-        if (!item.itemMeta.displayName.contains("가루")) return false
+        if (!item.itemMeta.displayName.contains("스톤")) return false
         return true
     }
 
@@ -45,7 +38,7 @@ object ItemClass {
     }
 
     fun getRank(item: ItemStack): Rank? {
-        if (isRankDust(item)) {
+        if (isRankStone(item)) {
             for (rank in Rank.values()) if (item.display().unColor().contains(rank.name)) return rank
             return null
         }
