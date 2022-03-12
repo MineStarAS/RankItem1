@@ -11,8 +11,6 @@ import org.bukkit.inventory.ItemStack
 
 object ItemClass {
 
-    fun head(id: Int) = HeadDatabaseAPI().getItemHead("$id") ?: Material.BARRIER.item().display("§c해당 ID의 머리가 없습니다")
-
     fun rankStone(rank: Rank): ItemStack = Material.NAUTILUS_SHELL.item().cmData(rank.ordinal).display("$rank 스톤")
 
     fun isRankStone(item: ItemStack): Boolean {
@@ -58,4 +56,6 @@ object ItemClass {
         if (int < 0) return null
        return Rank.values()[int]
     }
+
+    fun head(id: Int) = HeadDatabaseAPI().getItemHead("$id") ?: Material.BARRIER.item().display("§c해당 ID의 머리가 없습니다")
 }

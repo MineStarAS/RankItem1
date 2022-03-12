@@ -20,14 +20,18 @@ repositories {
 
 dependencies {
     implementation(kotlin("stdlib"))
-    compileOnly("net.kyori:adventure-api:4.9.3")
-    compileOnly("io.papermc.paper:paper-api:1.17.1-R0.1-SNAPSHOT")
+    compileOnly("net.kyori:adventure-api:4.10.1")
+    compileOnly("io.papermc.paper:paper-api:1.18.1-R0.1-SNAPSHOT")
     compileOnly("com.arcaniax:HeadDatabase-API:1.3.1")
 
     //project_TL
 
     //MineStar
-    compileOnly("kr.kro.minestar:Utility-API:1.6.1")
+    compileOnly("kr.kro.minestar:Utility-API:1.6.3")
+}
+
+java {
+    toolchain.languageVersion.set(JavaLanguageVersion.of(17))
 }
 
 tasks {

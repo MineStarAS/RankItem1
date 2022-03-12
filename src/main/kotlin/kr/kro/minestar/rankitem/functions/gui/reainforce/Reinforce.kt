@@ -1,14 +1,15 @@
-package kr.kro.minestar.rankitem.functions.reainforce
+package kr.kro.minestar.rankitem.functions.gui.reainforce
 
 import kr.kro.minestar.rankitem.Main
 import kr.kro.minestar.rankitem.Main.Companion.prefix
 import kr.kro.minestar.rankitem.enums.Rank
+import kr.kro.minestar.rankitem.functions.ItemClass
 import kr.kro.minestar.rankitem.functions.ItemClass.getRank
 import kr.kro.minestar.rankitem.functions.ItemClass.nextRank
 import kr.kro.minestar.rankitem.functions.ItemClass.rankStone
-import kr.kro.minestar.rankitem.functions.reainforce.ReinforceClass.rankPercent
-import kr.kro.minestar.rankitem.functions.reainforce.ReinforceClass.rankPercentItem
-import kr.kro.minestar.rankitem.functions.reainforce.ReinforceClass.rankUp
+import kr.kro.minestar.rankitem.functions.ReinforceClass.rankPercent
+import kr.kro.minestar.rankitem.functions.ReinforceClass.rankPercentItem
+import kr.kro.minestar.rankitem.functions.ReinforceClass.rankUp
 import kr.kro.minestar.utility.gui.GUI
 import kr.kro.minestar.utility.inventory.howManyHasSameItem
 import kr.kro.minestar.utility.item.amount
@@ -33,7 +34,9 @@ class Reinforce(override val player: Player, val item: ItemStack) : GUI {
     val reinforceButton = Material.ANVIL.item().display("§a강화하기")
 
     init {
-        openGUI()
+        if (ItemClass.isRankItem(item))
+            if (item.amount == 1)
+                openGUI()
     }
 
     override fun displaying() {

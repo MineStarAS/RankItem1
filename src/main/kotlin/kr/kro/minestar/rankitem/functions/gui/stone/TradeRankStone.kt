@@ -1,4 +1,4 @@
-package kr.kro.minestar.rankitem.functions.dust
+package kr.kro.minestar.rankitem.functions.gui.stone
 
 import kr.kro.minestar.rankitem.Main
 import kr.kro.minestar.rankitem.Main.Companion.prefix

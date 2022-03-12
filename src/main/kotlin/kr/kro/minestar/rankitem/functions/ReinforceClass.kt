@@ -1,11 +1,11 @@
-package kr.kro.minestar.rankitem.functions.reainforce
+package kr.kro.minestar.rankitem.functions
 
 import kr.kro.minestar.rankitem.Main.Companion.pl
 import kr.kro.minestar.rankitem.Main.Companion.prefix
 import kr.kro.minestar.rankitem.enums.Rank
-import kr.kro.minestar.rankitem.functions.ItemClass
 import kr.kro.minestar.rankitem.functions.ItemClass.isRankItem
-import kr.kro.minestar.rankitem.functions.dust.TradeRankStone
+import kr.kro.minestar.rankitem.functions.gui.reainforce.Reinforce
+import kr.kro.minestar.rankitem.functions.gui.stone.TradeRankStone
 import kr.kro.minestar.utility.item.addLore
 import kr.kro.minestar.utility.item.display
 import kr.kro.minestar.utility.item.flagAll
@@ -13,7 +13,6 @@ import kr.kro.minestar.utility.material.item
 import kr.kro.minestar.utility.string.toPlayer
 import org.bukkit.Material
 import org.bukkit.enchantments.Enchantment
-import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.event.block.Action
@@ -33,12 +32,6 @@ object ReinforceClass : Listener {
         Pair(Enchantment.BINDING_CURSE, 1),
         Pair(Enchantment.CHANNELING, 1),
     )
-
-    fun newClass(player: Player, item: ItemStack) {
-        if (!isRankItem(item)) return
-        if (item.amount != 1) return
-        Reinforce(player, item)
-    }
 
     fun rankPercent(rank: Rank) = pl.config.getDouble(rank.name)
 
@@ -86,7 +79,7 @@ object ReinforceClass : Listener {
             e.isCancelled = true
             val item = e.item ?: return "$prefix 강화 할 아이템을 손에 들고 클릭하세요!".toPlayer(e.player)
             if (!isRankItem(item)) return "$prefix §c해당 아이템은 강화 할 수 없습니다.".toPlayer(e.player)
-            newClass(e.player, item)
+            Reinforce(e.player, item)
             return
         }
         if (e.clickedBlock!!.type == Material.STONECUTTER) {

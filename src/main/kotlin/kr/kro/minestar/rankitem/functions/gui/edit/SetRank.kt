@@ -1,8 +1,8 @@
-package kr.kro.minestar.rankitem.functions.create
+package kr.kro.minestar.rankitem.functions.gui.edit
 
 import kr.kro.minestar.rankitem.Main
 import kr.kro.minestar.rankitem.enums.Rank
-import kr.kro.minestar.rankitem.functions.reainforce.ReinforceClass
+import kr.kro.minestar.rankitem.functions.ReinforceClass
 import kr.kro.minestar.utility.gui.GUI
 import kr.kro.minestar.utility.item.Slot
 import kr.kro.minestar.utility.item.display
@@ -15,7 +15,7 @@ import org.bukkit.event.EventHandler
 import org.bukkit.event.inventory.ClickType
 import org.bukkit.event.inventory.InventoryClickEvent
 
-class SetRank(override val player: Player, val backGUI: CreateRankItem) : GUI {
+class SetRank(override val player: Player, val backGUI: EditRankItem) : GUI {
     override val pl = Main.pl
 
     override val gui = Bukkit.createInventory(null, 9 * 2, "랭크 설정")

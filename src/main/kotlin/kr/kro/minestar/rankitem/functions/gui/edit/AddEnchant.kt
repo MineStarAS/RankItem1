@@ -1,8 +1,8 @@
-package kr.kro.minestar.rankitem.functions.create
+package kr.kro.minestar.rankitem.functions.gui.edit
 
 import kr.kro.minestar.rankitem.Main
 import kr.kro.minestar.rankitem.functions.ItemClass.head
-import kr.kro.minestar.rankitem.functions.reainforce.ReinforceClass.limitLevel
+import kr.kro.minestar.rankitem.functions.ReinforceClass.limitLevel
 import kr.kro.minestar.utility.gui.GUI
 import kr.kro.minestar.utility.item.Slot
 import kr.kro.minestar.utility.item.display
@@ -18,7 +18,7 @@ import org.bukkit.event.inventory.ClickType
 import org.bukkit.event.inventory.InventoryClickEvent
 import org.bukkit.inventory.ItemStack
 
-class AddEnchant(override val player: Player, val item: ItemStack, val createRankItem: CreateRankItem) : GUI {
+class AddEnchant(override val player: Player, val item: ItemStack, val createRankItem: EditRankItem) : GUI {
     override val pl = Main.pl
     override val gui = Bukkit.createInventory(null, 9 * 4, "인첸트 목록")
 
