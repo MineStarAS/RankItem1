@@ -1,0 +1,93 @@
+{
+  "formatVersion": "1.1",
+  "component": {
+    "group": "kr.kro.minestar",
+    "module": "RankItem-API",
+    "version": "1.0.1",
+    "attributes": {
+      "org.gradle.status": "release"
+    }
+  },
+  "createdBy": {
+    "gradle": {
+      "version": "7.2"
+    }
+  },
+  "variants": [
+    {
+      "name": "apiElements",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.jvm.environment": "standard-jvm",
+        "org.gradle.jvm.version": 17,
+        "org.gradle.libraryelements": "jar",
+        "org.gradle.usage": "java-api",
+        "org.jetbrains.kotlin.platform.type": "jvm"
+      },
+      "files": [
+        {
+          "name": "RankItem-API-1.0.1.jar",
+          "url": "RankItem-API-1.0.1.jar",
+          "size": 1943,
+          "sha512": "34d9486f592c2015b5759d00eecd13ba933352f1e673a74e136dfadf9396bb689721c25c915952d69842de8d2fbaf97231950e644e715c4ed28fb33cbbb3741c",
+          "sha256": "c9baea9563c7cd14843b04c2ef6d73fd213d2a2e005204c5451f30086e87e7da",
+          "sha1": "2d986ff0a31695eaba00b9fc501e1e0e54158abe",
+          "md5": "c7b03ed1eb1a89b609c2b479f9cc111c"
+        }
+      ]
+    },
+    {
+      "name": "runtimeElements",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.jvm.environment": "standard-jvm",
+        "org.gradle.jvm.version": 17,
+        "org.gradle.libraryelements": "jar",
+        "org.gradle.usage": "java-runtime",
+        "org.jetbrains.kotlin.platform.type": "jvm"
+      },
+      "dependencies": [
+        {
+          "group": "org.jetbrains.kotlin",
+          "module": "kotlin-stdlib",
+          "version": {
+            "requires": "1.6.10"
+          }
+        }
+      ],
+      "files": [
+        {
+          "name": "RankItem-API-1.0.1.jar",
+          "url": "RankItem-API-1.0.1.jar",
+          "size": 1943,
+          "sha512": "34d9486f592c2015b5759d00eecd13ba933352f1e673a74e136dfadf9396bb689721c25c915952d69842de8d2fbaf97231950e644e715c4ed28fb33cbbb3741c",
+          "sha256": "c9baea9563c7cd14843b04c2ef6d73fd213d2a2e005204c5451f30086e87e7da",
+          "sha1": "2d986ff0a31695eaba00b9fc501e1e0e54158abe",
+          "md5": "c7b03ed1eb1a89b609c2b479f9cc111c"
+        }
+      ]
+    },
+    {
+      "name": "shadowRuntimeElements",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.dependency.bundling": "shadowed",
+        "org.gradle.libraryelements": "jar",
+        "org.gradle.usage": "java-runtime"
+      },
+      "files": [
+        {
+          "name": "RankItem-API-1.0.1-all.jar",
+          "url": "RankItem-API-1.0.1-all.jar",
+          "size": 1724909,
+          "sha512": "0b635e9385678761faad2888822c1cd092093551f9861ef43653e3a2406fef4b09bcbe082e96eb1fef3c4c70f339bfeb9403cfaa5a129ef1b71e23a3325fc9ef",
+          "sha256": "56cac974779d2b3c38b6d6e4bbbe6d20572247d1a35dd428d81107425db3e482",
+          "sha1": "8738be60d3804b5a34a7ac62284b5e96f9872c53",
+          "md5": "bf1bb45c00b0d4465bda2fa34b51c2ee"
+        }
+      ]
+    }
+  ]
+}

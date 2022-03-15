@@ -1,0 +1,7 @@
+name: RankItem
+version: 1.0.0
+main: kr.kro.minestar.rankitem.Main
+api-version: 1.18
+authors: [ MineStar ]
+commands:
+  rankitem:

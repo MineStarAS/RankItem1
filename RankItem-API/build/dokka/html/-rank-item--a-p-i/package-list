@@ -1,0 +1,9 @@
+$dokka.format:html-v1
+$dokka.linkExtension:html
+$dokka.location:kr.kro.minestar.rankitem.api////PointingToDeclaration/-rank-item--a-p-i/kr.kro.minestar.rankitem.api/index.html
+$dokka.location:kr.kro.minestar.rankitem.api/RankItemOpenGUI///PointingToDeclaration/-rank-item--a-p-i/kr.kro.minestar.rankitem.api/-rank-item-open-g-u-i/index.html
+$dokka.location:kr.kro.minestar.rankitem.api/RankItemOpenGUI/reinforce/#org.bukkit.entity.Player/PointingToDeclaration/-rank-item--a-p-i/kr.kro.minestar.rankitem.api/-rank-item-open-g-u-i/reinforce.html
+$dokka.location:kr.kro.minestar.rankitem.api/RankItemOpenGUI/repair/#org.bukkit.entity.Player/PointingToDeclaration/-rank-item--a-p-i/kr.kro.minestar.rankitem.api/-rank-item-open-g-u-i/repair.html
+$dokka.location:kr.kro.minestar.rankitem.api/RankItemOpenGUI/tradePartsScrap/#org.bukkit.entity.Player/PointingToDeclaration/-rank-item--a-p-i/kr.kro.minestar.rankitem.api/-rank-item-open-g-u-i/trade-parts-scrap.html
+kr.kro.minestar.rankitem.api
+
