@@ -4,7 +4,7 @@ plugins {
 }
 
 group = "kr.kro.minestar"
-version = "1.0.0"
+version = "1.0.1"
 
 repositories {
     mavenCentral()
@@ -14,6 +14,10 @@ repositories {
     }
     maven("https://repo.projecttl.net/repository/maven-public/")
 }
+
+dependencies {
+    compileOnly(project(":RankItem"))
+    }
 
 tasks {
     javadoc {

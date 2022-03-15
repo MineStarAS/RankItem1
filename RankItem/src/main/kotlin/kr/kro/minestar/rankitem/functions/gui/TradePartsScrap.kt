@@ -48,6 +48,6 @@ class TradePartsScrap(override val player: Player) : GUI {
             }
         }
         player.inventory.addItem(ItemClass.partsScrap.clone().amount(amount))
-        "$prefix ${ItemClass.partsScrap.display()} §f를 ${amount.addComma()}§f개 얻었습니다.".toPlayer(player)
+        if (0 < amount) "$prefix ${ItemClass.partsScrap.display()} §f를 ${amount.addComma()}§f개 얻었습니다.".toPlayer(player)
     }
 }

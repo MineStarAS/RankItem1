@@ -1,3 +1,3 @@
 rootProject.name = "RankItem"
-include("plugin")
-include("plugin-api")
+include("RankItem")
+include("RankItem-API")
