@@ -8,6 +8,7 @@ import kr.kro.minestar.rankitem.functions.ReinforceClass
 import kr.kro.minestar.utility.event.disable
 import kr.kro.minestar.utility.gui.GUI
 import kr.kro.minestar.utility.item.amount
+import kr.kro.minestar.utility.item.display
 import kr.kro.minestar.utility.number.addComma
 import kr.kro.minestar.utility.string.toPlayer
 import org.bukkit.Bukkit
@@ -47,6 +48,6 @@ class TradePartsScrap(override val player: Player) : GUI {
             }
         }
         player.inventory.addItem(ItemClass.partsScrap.clone().amount(amount))
-        "$prefix §7장비 잔해§f를 ${amount.addComma()}§f개 얻었습니다.".toPlayer(player)
+        "$prefix ${ItemClass.partsScrap.display()} §f를 ${amount.addComma()}§f개 얻었습니다.".toPlayer(player)
     }
 }
