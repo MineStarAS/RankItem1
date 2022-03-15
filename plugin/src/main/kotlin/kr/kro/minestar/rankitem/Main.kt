@@ -1,8 +1,6 @@
 package kr.kro.minestar.rankitem
 
 import kr.kro.minestar.rankitem.functions.RankClass
-import kr.kro.minestar.rankitem.functions.ReinforceClass
-import org.bukkit.Bukkit
 import org.bukkit.plugin.java.JavaPlugin
 
 class Main : JavaPlugin() {

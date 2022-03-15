@@ -2,7 +2,6 @@ package kr.kro.minestar.rankitem.functions
 
 import kr.kro.minestar.rankitem.Main.Companion.pl
 import kr.kro.minestar.rankitem.Main.Companion.prefix
-import kr.kro.minestar.rankitem.enums.Rank
 import kr.kro.minestar.utility.bool.BooleanScript
 import kr.kro.minestar.utility.bool.addScript
 import kr.kro.minestar.utility.inventory.howManyHasSameItem
@@ -12,7 +11,6 @@ import kr.kro.minestar.utility.number.percent
 import kr.kro.minestar.utility.string.unColor
 import org.bukkit.Material
 import org.bukkit.enchantments.Enchantment
-import org.bukkit.event.Listener
 import org.bukkit.inventory.Inventory
 import org.bukkit.inventory.ItemStack
 
