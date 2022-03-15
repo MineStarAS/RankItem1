@@ -2,7 +2,7 @@ package kr.kro.minestar.rankitem.functions.gui.edit
 
 import kr.kro.minestar.rankitem.Main
 import kr.kro.minestar.rankitem.enums.Rank
-import kr.kro.minestar.rankitem.functions.ReinforceClass
+import kr.kro.minestar.rankitem.functions.RankClass
 import kr.kro.minestar.utility.gui.GUI
 import kr.kro.minestar.utility.item.Slot
 import kr.kro.minestar.utility.item.display
@@ -56,7 +56,7 @@ class SetRank(override val player: Player, val backGUI: EditRankItem) : GUI {
         } catch (e1: Exception) {
             return
         }
-        ReinforceClass.rankSet(backGUI.item, rank)
+        RankClass.setRank(backGUI.item, rank)
         backGUI.openGUI()
         return
     }

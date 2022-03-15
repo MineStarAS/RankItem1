@@ -2,7 +2,7 @@ package kr.kro.minestar.rankitem.functions.gui
 
 import kr.kro.minestar.rankitem.Main
 import kr.kro.minestar.rankitem.functions.ItemClass.head
-import kr.kro.minestar.rankitem.functions.RankItemClass
+import kr.kro.minestar.rankitem.functions.RankClass
 import kr.kro.minestar.rankitem.functions.gui.edit.EditRankItem
 import kr.kro.minestar.utility.gui.GUI
 import kr.kro.minestar.utility.item.Slot
@@ -40,8 +40,8 @@ class RankItemListGUI(override val player: Player) : GUI {
         })
 
         for (slot in (page * 45) until ((page + 1) * 45)) {
-            if (RankItemClass.rankItemList.lastIndex < slot) break
-            gui.addItem(RankItemClass.rankItemList[slot])
+            if (RankClass.rankItemList.lastIndex < slot) break
+            gui.addItem(RankClass.rankItemList[slot])
         }
     }
 
@@ -63,7 +63,7 @@ class RankItemListGUI(override val player: Player) : GUI {
                     displaying()
                 }
                 button[1].item -> {
-                    if (RankItemClass.rankItemList.lastIndex < page * 45) return
+                    if (RankClass.rankItemList.lastIndex < page * 45) return
                     --page
                     displaying()
                 }
@@ -76,7 +76,7 @@ class RankItemListGUI(override val player: Player) : GUI {
             ClickType.LEFT -> EditRankItem(player, rankItem)
             ClickType.SHIFT_LEFT -> player.inventory.addItem(rankItem)
             ClickType.DROP -> {
-                RankItemClass.rankItemList.removeAt(index)
+                RankClass.rankItemList.removeAt(index)
                 displaying()
             }
             else -> return
@@ -86,7 +86,7 @@ class RankItemListGUI(override val player: Player) : GUI {
     fun itemIndex(slot: Int) = page * 45 + slot
 
     fun rankItem(index: Int): ItemStack? {
-        if (index !in 0..RankItemClass.rankItemList.lastIndex) return null
-        return RankItemClass.rankItemList[index]
+        if (index !in 0..RankClass.rankItemList.lastIndex) return null
+        return RankClass.rankItemList[index]
     }
 }

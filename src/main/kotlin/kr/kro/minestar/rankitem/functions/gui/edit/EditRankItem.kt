@@ -4,11 +4,11 @@ import kr.kro.minestar.rankitem.Main
 import kr.kro.minestar.rankitem.Main.Companion.prefix
 import kr.kro.minestar.rankitem.enums.Rank
 import kr.kro.minestar.rankitem.functions.ItemClass
+import kr.kro.minestar.rankitem.functions.RankClass
 import kr.kro.minestar.utility.gui.GUI
 import kr.kro.minestar.utility.item.*
 import kr.kro.minestar.utility.material.item
 import kr.kro.minestar.utility.string.toPlayer
-import kr.kro.minestar.utility.string.toServer
 import org.bukkit.Bukkit
 import org.bukkit.Material
 import org.bukkit.entity.Player
@@ -35,17 +35,17 @@ class EditRankItem(override val player: Player, val item: ItemStack) : GUI {
     private var typing = Typing.NULL
 
     private val slots = mapOf(
-        Pair(Slot(0, 0, Material.NAME_TAG.item().display("§e접두사 추가")),Button.ADD_PREFIX),
-        Pair(Slot(0, 1, Material.WRITABLE_BOOK.item().display("§e이름 설정")),Button.SET_DISPLAY),
-        Pair(Slot(0, 2, Material.NAME_TAG.item().display("§e접미사 추가")),Button.ADD_SUFFIX),
+        Pair(Slot(0, 0, Material.NAME_TAG.item().display("§e접두사 추가")), Button.ADD_PREFIX),
+        Pair(Slot(0, 1, Material.WRITABLE_BOOK.item().display("§e이름 설정")), Button.SET_DISPLAY),
+        Pair(Slot(0, 2, Material.NAME_TAG.item().display("§e접미사 추가")), Button.ADD_SUFFIX),
 
-        Pair(Slot(1, 0, Material.MAP.item().display("§e로어 추가")),Button.ADD_LORE),
-        Pair(Slot(1, 1, Material.PAPER.item().display("§e로어 제거")),Button.REMOVE_LORE),
+        Pair(Slot(1, 0, Material.MAP.item().display("§e로어 추가")), Button.ADD_LORE),
+        Pair(Slot(1, 1, Material.PAPER.item().display("§e로어 제거")), Button.REMOVE_LORE),
 
-        Pair(Slot(0, 4, Material.ENCHANTED_BOOK.item().display("§e인첸트 추가")),Button.EDIT_ENCHANT),
-        Pair(Slot(0, 6, Material.DIAMOND.item().display("§e부서짐 설정")),Button.EDIT_UNBREAKABLE),
-        Pair(Slot(0, 7, Material.STRUCTURE_VOID.item().display("§e속성 숨김 설정")),Button.EDIT_FLAG),
-        Pair(Slot(0, 8, ItemClass.rankStone(Rank.SSS).display("§e랭크 설정")),Button.SET_RANK),
+        Pair(Slot(0, 4, Material.ENCHANTED_BOOK.item().display("§e인첸트 추가")), Button.EDIT_ENCHANT),
+        Pair(Slot(0, 6, Material.DIAMOND.item().display("§e부서짐 설정")), Button.EDIT_UNBREAKABLE),
+        Pair(Slot(0, 7, Material.STRUCTURE_VOID.item().display("§e속성 숨김 설정")), Button.EDIT_FLAG),
+        Pair(Slot(0, 8, ItemClass.rankStone(Rank.SSS).display("§e랭크 설정")), Button.SET_RANK),
     )
 
     init {
@@ -118,8 +118,9 @@ class EditRankItem(override val player: Player, val item: ItemStack) : GUI {
                 displaying()
             }
             Button.EDIT_UNBREAKABLE -> {
-                if (item.itemMeta.isUnbreakable) item.breakable()
-                else item.unbreakable()
+                val meta = item.itemMeta
+                meta.isUnbreakable = !meta.isUnbreakable
+                item.itemMeta = meta
                 displaying()
             }
             Button.SET_RANK -> SetRank(player, this)
@@ -137,7 +138,7 @@ class EditRankItem(override val player: Player, val item: ItemStack) : GUI {
             Typing.PREFIX -> item.addPrefix(message)
             Typing.SUFFIX -> item.addSuffix(message)
             Typing.LORE -> {
-                val rank = ItemClass.getRank(item)
+                val rank = RankClass.getRank(item)
                 val lore = item.lore!!
                 lore.removeAt(lore.lastIndex)
                 lore.removeAt(lore.lastIndex)

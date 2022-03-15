@@ -1,6 +1,6 @@
 package kr.kro.minestar.rankitem
 
-import kr.kro.minestar.rankitem.functions.RankItemClass
+import kr.kro.minestar.rankitem.functions.RankClass
 import kr.kro.minestar.rankitem.functions.ReinforceClass
 import org.bukkit.Bukkit
 import org.bukkit.plugin.java.JavaPlugin
@@ -15,13 +15,12 @@ class Main : JavaPlugin() {
         pl = this
         logger.info("$prefix §aEnable")
         getCommand("rankitem")?.setExecutor(CMD)
-        Bukkit.getPluginManager().registerEvents(ReinforceClass, this)
 
         saveResource("config.yml", false)
-        RankItemClass.dataLoad()
+        RankClass.dataLoad()
     }
 
     override fun onDisable() {
-        RankItemClass.dataSave()
+        RankClass.dataSave()
     }
 }
