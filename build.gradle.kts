@@ -38,6 +38,6 @@ subprojects {
         //project_TL
 
         //MineStar
-        compileOnly("kr.kro.minestar:Utility-API:1.6.3")
+        compileOnly("kr.kro.minestar:Utility-API:1.0.0")
     }
 }
